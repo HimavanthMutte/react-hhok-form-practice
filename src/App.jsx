@@ -12,7 +12,8 @@ const App = () => {
       userName: "",
       email: "",
       password: "",
-      channelName: ""
+      channelName: "",
+      phoneNumbers: ["",""]
     }
   })
   const { register , control , handleSubmit , formState} = form
@@ -69,8 +70,48 @@ const App = () => {
             value: true,
             message: "Channel Name is required"
           }
-        })} type="text" className="mt-2 border p-3 border-slate-400 rounded-sm placeholder-slate-400 focus:ring-2 text-md font-semibold outline-none focus-ring-offset-1 focus:ring-indigo-500 focus:border-none focus:text-indigo-500" id={`${baseId}-channel`} placeholder="Enter your channel name..."/>
+        })} type="tel" className="mt-2 border p-3 border-slate-400 rounded-sm placeholder-slate-400 focus:ring-2 text-md font-semibold outline-none focus-ring-offset-1 focus:ring-indigo-500 focus:border-none focus:text-indigo-500" id={`${baseId}-channel`} placeholder="Enter your channel name..."/>
         <p className="mt-2 text-red-500">{errors.channelName?.message}</p>
+        <label className="mt-3 text-md text-slate-600 font-semibold" htmlFor={`${baseId}-phoneNumber-1`}>Phone Number 1</label>
+        <input {...register("phoneNumbers.0",{
+          required: {
+            value: true,
+            message: "Phone Number 1 is required"
+          },
+          minLength: {
+            value: 10,
+            message: "Phone Number must be at least 10 digits"
+          },
+          maxLength: {
+            value: 15,
+            message: "Phone Number must be less than 15 digits"
+          },
+          pattern: {
+            value: /^\d+$/,
+            message: "Phone Number must contain only digits"
+          }
+        })} type="tel" className="mt-2 border p-3 border-slate-400 rounded-sm placeholder-slate-400 focus:ring-2 text-md font-semibold outline-none focus-ring-offset-1 focus:ring-indigo-500 focus:border-none focus:text-indigo-500" id={`${baseId}-phoneNumber-1`} placeholder="Enter your phone number..."/>
+        <p className="mt-2 text-red-500">{errors.phoneNumbers?.[0]?.message}</p>
+        <label className="mt-3 text-md text-slate-600 font-semibold" htmlFor={`${baseId}-phoneNumber-2`}>Phone Number 2</label>
+        <input {...register("phoneNumbers.1",{
+          required: {
+            value: true,
+            message: "Phone Number 2 is required"
+          },
+          minLength: {
+            value: 10,
+            message: "Phone Number must be at least 10 digits"
+          },
+          maxLength: {
+            value: 15,
+            message: "Phone Number must be less than 15 digits"
+          },
+          pattern: {
+            value: /^\d+$/,
+            message: "Phone Number must contain only digits"
+          }
+        })} type="text" className="mt-2 border p-3 border-slate-400 rounded-sm placeholder-slate-400 focus:ring-2 text-md font-semibold outline-none focus-ring-offset-1 focus:ring-indigo-500 focus:border-none focus:text-indigo-500" id={`${baseId}-phoneNumber-2`} placeholder="Enter your phone number..."/>
+        <p className="mt-2 text-red-500">{errors.phoneNumbers?.[1]?.message}</p>
         <button type="submit" className="bg-indigo-500 mt-3 rounded-sm py-3 text-white font-bold">Submit</button>
       </form>
       <DevTool control={control}/>
