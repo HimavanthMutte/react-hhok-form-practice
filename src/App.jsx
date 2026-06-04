@@ -2,6 +2,7 @@ import {useId} from "react"
 
 import { useForm } from "react-hook-form"
 import { DevTool } from "@hookform/devtools"
+import { FaEye } from "react-icons/fa"
 
 const App = () => {
   const baseId = useId()
@@ -10,6 +11,7 @@ const App = () => {
     defaultValues: {
       userName: "",
       email: "",
+      password: "",
       channelName: ""
     }
   })
@@ -41,6 +43,26 @@ const App = () => {
             }
         }})} type="text" className="mt-2 border p-3 border-slate-400 rounded-sm placeholder-slate-400 focus:ring-2 text-md font-semibold outline-none focus-ring-offset-1 focus:ring-indigo-500 focus:border-none focus:text-indigo-500" id={`${baseId}-email`} placeholder="Enter your email..."/>
         <p className="mt-2 text-red-500">{errors.email?.message}</p>
+        <label className="mt-3 text-md text-slate-600 font-semibold" htmlFor={`${baseId}-password`}>Password</label>
+        <div className="relative">
+          <input {...register("password",{
+            required: { value: true, message: "Password is required" },
+            minLength: {
+              value: 6,
+              message: "Password must be at least 6 characters"
+            },
+            maxLength: {
+              value: 20,
+              message: "Password must be less than 20 characters"
+            },
+            pattern: {
+              value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
+              message:
+                "Must contain uppercase, lowercase and a number"
+          }})} type="password" className="w-full mt-2 border p-3 border-slate-400 rounded-sm placeholder-slate-400 focus:ring-2 text-md font-semibold outline-none focus-ring-offset-1 focus:ring-indigo-500 focus:border-none focus:text-indigo-500" id={`${baseId}-password`} placeholder="Enter your password..."/>
+          <FaEye onMouseEnter={() => { document.getElementById(`${baseId}-password`).type = "text"; }} onMouseLeave={() => { document.getElementById(`${baseId}-password`).type = "password"; }} className="absolute right-3 top-[45%] bottom-[75%] right-[20px] text-slate-500 text-lg"/>
+        </div>
+        <p className="mt-2 text-red-500">{errors.password?.message}</p>
         <label className="mt-3 text-md text-slate-600 font-semibold" htmlFor={`${baseId}-name`}>Channel Name</label>
         <input {...register("channelName",{
           required: {
