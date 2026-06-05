@@ -16,17 +16,22 @@ const App = () => {
       phoneNumbers: ["",""]
     }
   })
-  const { register , control , handleSubmit , formState} = form
-  const {errors} = formState
-
+  const { register , control , handleSubmit , formState , watch , getValues } = form
+  const {errors , isValid , isDirty , submitCount } = formState
+  
   const onSubmit = (data) =>{
+    console.log(getValues())
     console.log(data)
+  }
+
+  const onError = (errors) => {
+    alert("Form has errors. Please fix them before submitting.")
   }
 
   return(
     <div className="min-h-screen p-5 bg-indigo-500 flex flex-row justify-center items-center">
-      <form onSubmit={handleSubmit(onSubmit)} className="shadow-lg bg-white rounded-lg py-6 px-6 flex flex-col w-[550px]" noValidate>
-        <h1 className="text-center text-indigo-600 font-sans text-3xl font-bold">React-Hook-Form</h1>
+      <form onSubmit={handleSubmit(onSubmit,onError)} className="shadow-lg bg-white rounded-lg py-6 px-6 flex flex-col w-[550px]" noValidate>
+        <h1 className="text-center text-indigo-600 font-sans text-3xl font-bold">React-Hook-Form({submitCount})</h1>
         <label className="mt-3 text-md text-slate-600 font-semibold" htmlFor={`${baseId}-name`}>Username</label>
         <input {...register("userName",{
           required: "Username Required"
@@ -112,7 +117,7 @@ const App = () => {
           }
         })} type="text" className="mt-2 border p-3 border-slate-400 rounded-sm placeholder-slate-400 focus:ring-2 text-md font-semibold outline-none focus-ring-offset-1 focus:ring-indigo-500 focus:border-none focus:text-indigo-500" id={`${baseId}-phoneNumber-2`} placeholder="Enter your phone number..."/>
         <p className="mt-2 text-red-500">{errors.phoneNumbers?.[1]?.message}</p>
-        <button type="submit" className="bg-indigo-500 mt-3 rounded-sm py-3 text-white font-bold">Submit</button>
+        <button disabled={!isValid || !isDirty} type="submit" className="disabled:bg-gray-400 cursor-pointer bg-indigo-500 mt-3 rounded-sm py-3 text-white font-bold">Submit</button>
       </form>
       <DevTool control={control}/>
     </div>
