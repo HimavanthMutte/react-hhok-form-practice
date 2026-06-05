@@ -117,7 +117,7 @@ const App = () => {
           }
         })} type="text" className="mt-2 border p-3 border-slate-400 rounded-sm placeholder-slate-400 focus:ring-2 text-md font-semibold outline-none focus-ring-offset-1 focus:ring-indigo-500 focus:border-none focus:text-indigo-500" id={`${baseId}-phoneNumber-2`} placeholder="Enter your phone number..."/>
         <p className="mt-2 text-red-500">{errors.phoneNumbers?.[1]?.message}</p>
-        <button disabled={!isValid || !isDirty} type="submit" className="disabled:bg-gray-400 cursor-pointer bg-indigo-500 mt-3 rounded-sm py-3 text-white font-bold">Submit</button>
+        <button type="submit" className="disabled:bg-gray-400 cursor-pointer bg-indigo-500 mt-3 rounded-sm py-3 text-white font-bold">Submit</button>
       </form>
       <DevTool control={control}/>
     </div>
